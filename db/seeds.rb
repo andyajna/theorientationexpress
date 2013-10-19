@@ -5,12 +5,19 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-puts 'ROLES'
-YAML.load(ENV['ROLES']).each do |role|
-  Role.find_or_create_by_name({ :name => role }, :without_protection => true)
-  puts 'role: ' << role
-end
-puts 'DEFAULT USERS'
-user = User.find_or_create_by_email :name => ENV['ADMIN_NAME'].dup, :email => ENV['ADMIN_EMAIL'].dup, :password => ENV['ADMIN_PASSWORD'].dup, :password_confirmation => ENV['ADMIN_PASSWORD'].dup
-puts 'user: ' << user.name
+puts 'CREATING ROLES'
+Role.create([
+  { :name => 'admin' }, 
+  { :name => 'manager' },
+  { :name => 'user' }
+])
+puts 'SETTING UP DEFAULT USER LOGIN'
+user = User.create! :name => 'Admin User', :email => 'admin@example.com', :password => 'pleaseme', :password_confirmation => 'pleaseme'
+puts 'New user created: ' << user.name
+user2 = User.create! :name => 'Manager User', :email => 'manager@example.com', :password => 'pleaseme', :password_confirmation => 'pleaseme'
+puts 'New user created: ' << user2.name
+user3 = User.create! :name => 'Normal User', :email => 'user@example.com', :password => 'pleaseme', :password_confirmation => 'pleaseme'
+puts 'New user created: ' << user3.name
 user.add_role :admin
+user2.add_role :manager
+user3.add_role :user

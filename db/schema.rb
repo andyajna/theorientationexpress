@@ -11,7 +11,45 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131019021945) do
+ActiveRecord::Schema.define(:version => 20131019044653) do
+
+  create_table "answers", :force => true do |t|
+    t.string   "answer_text"
+    t.string   "value"
+    t.string   "reason"
+    t.integer  "question_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "answers", ["question_id"], :name => "index_answers_on_question_id"
+
+  create_table "departments", :force => true do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "departments", ["user_id"], :name => "index_departments_on_user_id"
+
+  create_table "jobs", :force => true do |t|
+    t.string   "name"
+    t.integer  "department_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "jobs", ["department_id"], :name => "index_jobs_on_department_id"
+
+  create_table "questions", :force => true do |t|
+    t.string   "question_text"
+    t.integer  "topic_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "questions", ["topic_id"], :name => "index_questions_on_topic_id"
 
   create_table "roles", :force => true do |t|
     t.string   "name"
@@ -23,6 +61,37 @@ ActiveRecord::Schema.define(:version => 20131019021945) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], :name => "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], :name => "index_roles_on_name"
+
+  create_table "topics", :force => true do |t|
+    t.string   "name"
+    t.date     "due_date"
+    t.string   "type"
+    t.integer  "job_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "topics", ["job_id"], :name => "index_topics_on_job_id"
+
+  create_table "user_departments", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "department_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "user_departments", ["department_id"], :name => "index_user_departments_on_department_id"
+  add_index "user_departments", ["user_id"], :name => "index_user_departments_on_user_id"
+
+  create_table "user_jobs", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "job_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "user_jobs", ["job_id"], :name => "index_user_jobs_on_job_id"
+  add_index "user_jobs", ["user_id"], :name => "index_user_jobs_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -42,6 +111,11 @@ ActiveRecord::Schema.define(:version => 20131019021945) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "users_departments", :id => false, :force => true do |t|
+    t.integer "user_id"
+    t.integer "department_id"
+  end
 
   create_table "users_roles", :id => false, :force => true do |t|
     t.integer "user_id"

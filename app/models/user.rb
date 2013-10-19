@@ -10,4 +10,10 @@ class User < ActiveRecord::Base
   attr_accessible :role_ids, :as => :admin
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me
   
+  has_many :user_departments
+  has_many :departments, through: :user_departments
+
+  has_many :user_jobs
+  has_many :jobs, through: :user_jobs
+
 end
