@@ -1,9 +1,10 @@
-<h1>Listing jobs</h1>
+<h4>Jobs Listing</h4>
 
 <table class="table table-condensed">
   <tr>
     <th>Name</th>
     <th>Department</th>
+    <th>Employee Count</th>
     <th></th>
     <th></th>
     <th></th>
@@ -13,6 +14,7 @@
   <tr>
     <td><%= job.name %></td>
     <td><%= job.department.name %></td>
+    <td><%= job.users.count %></td>
     <td><%= link_to 'Show', job %></td>
     <td><%= link_to 'Edit', edit_job_path(job) %></td>
     <td><%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -1,5 +1,7 @@
 <p id="notice"><%= notice %></p>
 
+<h4>Job Listing</h4>
+
 <p>
   <b>Name:</b>
   <%= @job.name %>
@@ -10,6 +12,22 @@
   <%= @job.department.name %>
 </p>
 
+<p><b>Employees:</b></p>
+<table class="table table-condensed">
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
 
-<%= link_to 'Edit', edit_job_path(@job) %> |
-<%= link_to 'Back', jobs_path %>
+  </tr>
+
+<% @job.users.each do |user| %>
+  <tr>
+    <td><%= user.name %></td>
+    <td><%= user.email %></td>
+  
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Update This Job', edit_job_path(@job) %> |
+<%= link_to 'List All Jobs', jobs_path %>

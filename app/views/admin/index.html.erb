@@ -1,13 +1,13 @@
 <h3>Admin Dashboard</h3>
 
-<h4>Users</h4> 
+<h4>Employees</h4> 
 
 <table class="table table-condensed">
   <thead>
     <tr>
-      <th>Username</th>
-      <th>Email</th>
-      <th>Registered</th>
+      <th>Name</th>
+      <th>Department</th>
+      <th>Job</th>
       <th>Role</th>
       <th></th>
       <th></th>
@@ -31,10 +31,11 @@
 </table>
 
 
-<p><h4>Departments</h4> <%= link_to 'New Department', new_department_path %></p>
+<p><h4>Departments</h4> <%= link_to 'New Department', new_department_path, :class => 'btn btn-mini' %></p>
 <table class="table table-condensed">
   <tr>
     <th>Name</th>
+    <th>Job Count</th>
     <th></th>
     <th></th>
     <th></th>
@@ -43,18 +44,20 @@
 <% @departments.each do |department| %>
   <tr>
     <td><%= department.name %></td>
-    <td><%= link_to 'Show', department %></td>
-    <td><%= link_to 'Edit', edit_department_path(department) %></td>
-    <td><%= link_to 'Destroy', department, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= department.jobs.count %></td>
+    <td><%= link_to 'Show Department Detail', department, :class => 'btn btn-mini' %></td>
+    <td><%= link_to 'Edit Department Name', edit_department_path(department), :class => 'btn btn-mini' %></td>
+    <td><%= link_to 'Delete Department', department, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini' %></td>
   </tr>
 <% end %>
 </table>
 
-<p><h4>Jobs</h4> <%= link_to 'New Job', new_job_path %></p>
+<p><h4>Jobs</h4> <%= link_to 'New Job', new_job_path, :class => 'btn btn-mini' %></p>
 <table class="table table-condensed">
   <tr>
     <th>Name</th>
     <th>Department</th>
+    <th>Employee Count</th>
     <th></th>
     <th></th>
     <th></th>
@@ -64,9 +67,10 @@
   <tr>
     <td><%= job.name %></td>
     <td><%= job.department.name %></td>
-    <td><%= link_to 'Show', job %></td>
-    <td><%= link_to 'Edit', edit_job_path(job) %></td>
-    <td><%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= job.users.count %></td>
+    <td><%= link_to 'Show Job Detail', job, :class => 'btn btn-mini' %></td>
+    <td><%= link_to 'Edit Job', edit_job_path(job), :class => 'btn btn-mini' %></td>
+    <td><%= link_to 'Delete Job', job, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini' %></td>
   </tr>
 <% end %>
 </table>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131019044653) do
+ActiveRecord::Schema.define(:version => 20131019052453) do
 
   create_table "answers", :force => true do |t|
     t.string   "answer_text"
@@ -76,8 +76,9 @@ ActiveRecord::Schema.define(:version => 20131019044653) do
   create_table "user_departments", :force => true do |t|
     t.integer  "user_id"
     t.integer  "department_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.string   "user_dept_role"
   end
 
   add_index "user_departments", ["department_id"], :name => "index_user_departments_on_department_id"
